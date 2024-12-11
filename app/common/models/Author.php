@@ -6,6 +6,20 @@ use yii\db\ActiveRecord;
 
 class Author extends ActiveRecord
 {
+    public function rules()
+    {
+        return [
+            [['full_name'], 'required'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'full_name' => 'ФИО',
+        ];
+    }
     public static function tableName()
     {
         return '{{%authors}}';

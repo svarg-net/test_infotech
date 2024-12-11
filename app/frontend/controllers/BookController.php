@@ -1,5 +1,7 @@
 <?php
+
 namespace frontend\controllers;
+
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -60,8 +62,10 @@ class BookController extends Controller
             if ($book->save()) {
                 // Сохраняем связь с авторами
                 $authorIds = $model->author_ids;
-                foreach ($authorIds as $authorId) {
-                    $book->link('authors', Author::findOne($authorId));
+                if (!empty($authorIds)) {
+                    foreach ($authorIds as $authorId) {
+                        $book->link('authors', Author::findOne($authorId));
+                    }
                 }
                 return $this->redirect(['view', 'id' => $book->id]);
             }
@@ -86,7 +90,7 @@ class BookController extends Controller
         $model->description = $book->description;
         $model->isbn = $book->isbn;
         $model->photo = $book->photo;
-        $model->author_ids = ArrayHelper::getColumn($book->authors??[], 'id'); // Получаем идентификаторы авторов
+        $model->author_ids = ArrayHelper::getColumn($book->authors ?? [], 'id'); // Получаем идентификаторы авторов
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $book->title = $model->title;

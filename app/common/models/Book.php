@@ -17,8 +17,6 @@ class Book extends ActiveRecord
             [['year'], 'integer'],
             [['description'], 'string'],
             [['title', 'isbn', 'photo'], 'string', 'max' => 255],
-            [['author_ids'], 'safe'],
-
         ];
     }
 

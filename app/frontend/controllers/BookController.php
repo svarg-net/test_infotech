@@ -13,6 +13,35 @@ use common\models\Author;
 
 class BookController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['createBook'], // Доступ для пользователей с разрешением createBook
+                    ],
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
+                        'roles' => ['updateBook'], // Доступ для пользователей с разрешением updateBook
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        'roles' => ['deleteBook'], // Доступ для пользователей с разрешением deleteBook
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {

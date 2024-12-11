@@ -62,7 +62,9 @@ class Book extends ActiveRecord
         foreach ($authors as $author) {
             $subscribers = $author->getSubscribers()->all();
             foreach ($subscribers as $subscriber) {
-                $this->sendSms($subscriber->phone, $message);
+
+                $testPhone='7999999999';
+                $this->sendSms($testPhone, $message);
             }
         }
     }
@@ -87,7 +89,7 @@ class Book extends ActiveRecord
 
         $context  = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
-
+        file_put_contents('log.txt', $result);
         if ($result === FALSE) {
             echo "Ошибка при отправке SMS-сообщения.";
         } else {
